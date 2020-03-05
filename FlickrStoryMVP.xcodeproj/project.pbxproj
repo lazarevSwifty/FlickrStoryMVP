@@ -97,16 +97,10 @@
 			isa = PBXGroup;
 			children = (
 				E0516D0A2403F63400D9B8D8 /* Extensions */,
-				E007098223FED98C001B718A /* AppDelegate.swift */,
-				E007098423FED98C001B718A /* SceneDelegate.swift */,
-				E0516D10240D5F6700D9B8D8 /* ModuleBuilder.swift */,
+				E0516D1C2410E36200D9B8D8 /* SupportFiles */,
 				E0516D15240E970B00D9B8D8 /* Modules */,
 				E0516D0F240D5F2C00D9B8D8 /* ServiceLayer */,
-				E0516D0D2408254D00D9B8D8 /* Constants.swift */,
-				E007098B23FED98F001B718A /* Assets.xcassets */,
-				E007098D23FED98F001B718A /* LaunchScreen.storyboard */,
-				E0516D0B2404185D00D9B8D8 /* Main.storyboard */,
-				E007099023FED98F001B718A /* Info.plist */,
+				E0516D1D2410E39500D9B8D8 /* LaunchScreen */,
 			);
 			path = FlickrStoryMVP;
 			sourceTree = "<group>";
@@ -153,10 +147,32 @@
 		E0516D15240E970B00D9B8D8 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E0516D10240D5F6700D9B8D8 /* ModuleBuilder.swift */,
 				E0516D072403F31D00D9B8D8 /* Main */,
 				E0516D14240E96F800D9B8D8 /* Detail */,
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		E0516D1C2410E36200D9B8D8 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				E007098223FED98C001B718A /* AppDelegate.swift */,
+				E007098423FED98C001B718A /* SceneDelegate.swift */,
+				E0516D0D2408254D00D9B8D8 /* Constants.swift */,
+				E007099023FED98F001B718A /* Info.plist */,
+				E007098B23FED98F001B718A /* Assets.xcassets */,
+				E0516D0B2404185D00D9B8D8 /* Main.storyboard */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		E0516D1D2410E39500D9B8D8 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E007098D23FED98F001B718A /* LaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
 		E8EBCE49386DD81B5E4D3C11 /* Frameworks */ = {
