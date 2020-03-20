@@ -1,11 +1,14 @@
 import UIKit
 import SDWebImage
 
-class DetailViewController: UIViewController {
-
-    let detailView = DetailView()
+class DetailViewController: UIViewController, ViewSpecificController {
+    typealias RootView = DetailView
     
+
     var presenter: DetailViewPresenterProtocol!
+    override func loadView() {
+        view = DetailView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,8 +19,7 @@ class DetailViewController: UIViewController {
 extension DetailViewController: DetailViewProtocol {
     func setImage(photo: Photo?) {
         let photoURL = UrlConfigure.configure(photo: photo)
-        DispatchQueue.main.async {
-            self.detailView.imageView.sd_setImage(with: photoURL)
-        }
+        view().imageView.sd_imageIndicator = SDWebImageActivityIndicator.white
+        view().imageView.sd_setImage(with: photoURL)
     }
 }

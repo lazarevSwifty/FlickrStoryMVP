@@ -1,25 +1,46 @@
 import UIKit
 
-final class MainViewController: UIViewController {
+final class MainViewController: UIViewController, ViewSpecificController {
+    typealias RootView = MainView
+    
     
     var presenter: MainViewPresenterProtocol!
+    let sectionInsets = UIEdgeInsets(top: 0,
+    left: UIScreen.main.bounds.width * 0.1,
+    bottom: UIScreen.main.bounds.width * 0.1,
+    right: UIScreen.main.bounds.width * 0.1)
     
-    let sectionInsets = UIEdgeInsets(top: 50.0,
-    left: 20.0,
-    bottom: 50.0,
-    right: 20.0)
     let itemsPerRow: CGFloat = 2
-    let mainView = MainView()
+    
+    override func loadView() {
+        view = MainView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view().frame = UIScreen.main.bounds
+        
+        view().collectionView.delegate = self
+        view().collectionView.dataSource = self
+        
+        setNavBar()
+    }
     
-        
-        mainView.frame = UIScreen.main.bounds
-        view.addSubview(mainView)
-        
-        mainView.collectionView.delegate = self
-        mainView.collectionView.dataSource = self
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isLandscape {
+            print("landscape")
+        } else {
+            print("portrait")
+        }
+    }
+    
+    func setNavBar() {
+        let refreshItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshButton(sender:)))
+        navigationItem.rightBarButtonItem = refreshItem
+    }
+    
+    @objc func refreshButton(sender: UIBarButtonItem) {
+        presenter.refreshData()
     }
     
 }
@@ -41,19 +62,20 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     //MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
               
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-        let availableWidth = collectionView.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
+        //let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        //let availableWidth = collectionView.frame.width - paddingSpace
+        let availableWidth = UIScreen.main.bounds.width * 0.35
+        //let widthPerItem = availableWidth / itemsPerRow
         
-        return CGSize(width: widthPerItem, height: widthPerItem)
+        return CGSize(width: availableWidth, height: availableWidth)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-         return sectionInsets
+        return sectionInsets
     }
      
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.left
+        return UIScreen.main.bounds.width * 0.1
 
     }
     
@@ -70,7 +92,7 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: MainViewProtocol {
     func succes() {
-        mainView.collectionView.reloadData()
+        view().collectionView.reloadData()
     }
     
     

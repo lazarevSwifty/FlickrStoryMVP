@@ -8,6 +8,7 @@ protocol MainViewProtocol: AnyObject {
 protocol MainViewPresenterProtocol: AnyObject {
     init(view: MainViewProtocol, networkService: NetworkService)
     func obtainImages()
+    func refreshData()
     var flickrPhotos: [Photo]? {get set}
 }
 
@@ -37,6 +38,12 @@ class MainPresenter: MainViewPresenterProtocol {
             }
         })
     }
+    
+    func refreshData() {
+        obtainImages()
+        self.view?.succes()
+    }
+    
     
 }
 
